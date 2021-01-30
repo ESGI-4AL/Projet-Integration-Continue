@@ -1,0 +1,9 @@
+node('docker') {
+
+    stage('sonar-scanner') {
+      def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+      withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://167.99.221.152:9000 -Dsonar.login=${sonarLogin}"
+      }
+    }
+  }
